@@ -24,3 +24,9 @@ proguard/
 
 # Log Files
 *.log
+
+target/
+build/
+.idea/
+*.iml
+gen-external-apklibs/

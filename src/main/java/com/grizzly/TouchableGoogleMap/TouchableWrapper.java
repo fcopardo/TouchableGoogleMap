@@ -13,6 +13,8 @@ public class TouchableWrapper extends FrameLayout {
      * Class members.
      */
     private boolean _mapIsTouched;
+    private OnDragListener mOnDragListener;
+    private boolean captureTouches = false;
 
     public TouchableWrapper(Context context) {
         super(context);
@@ -24,6 +26,10 @@ public class TouchableWrapper extends FrameLayout {
 
     public TouchableWrapper(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+    }
+
+    public interface OnDragListener {
+        public void onDrag(MotionEvent motionEvent);
     }
 
     public boolean isContentTouched(){
@@ -45,6 +51,30 @@ public class TouchableWrapper extends FrameLayout {
                 _mapIsTouched = false;
                 break;
         }
+        if (mOnDragListener != null) {
+            mOnDragListener.onDrag(event);
+        }
+        if(captureTouches) return true;
         return super.dispatchTouchEvent(event);
+    }
+
+    /**
+     * Setter for custom listener
+     * @param mOnDragListener
+     */
+    public void setOnDragListener(OnDragListener mOnDragListener) {
+        this.mOnDragListener = mOnDragListener;
+    }
+
+    /**
+     * Setter for the capture touch flag. Setting this to true will disable touch interaction with the wrapper's contents.
+     * @param bol
+     */
+    public void setCaptureTouches(boolean bol){
+        captureTouches = bol;
+    }
+
+    public boolean isCaptureTouches(){
+        return captureTouches;
     }
 }

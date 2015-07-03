@@ -72,7 +72,7 @@ public class TouchableGoogleMapView extends TouchableWrapper {
         map.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
             @Override
             public void onCameraChange(CameraPosition cameraPosition) {
-                if(isContentTouched()) {
+                if (isContentTouched()) {
                     mapReleased.onMapReleased(cameraPosition);
                 }
             }
@@ -94,5 +94,14 @@ public class TouchableGoogleMapView extends TouchableWrapper {
     public MapView getMapView() {
         return mapView;
     }
+
+    /**
+     * Setter for the inner google map.
+     * @param map
+     */
+    public void setGoogleMap(GoogleMap map){
+        this.map = map;
+    }
+
 
 }
